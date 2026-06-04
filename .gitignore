@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+.env
+*.egg-info/
+dist/
+build/
+
+# SQLite database
+backend/data/registry.db
+backend/data/*.db
+
+# Logs
+backend/logs/
+*.log
+
+# Node / SvelteKit (frontend has its own .gitignore, this covers root-level accidents)
+node_modules/
+frontend/.svelte-kit/
+frontend/build/
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# Docker
+.dockerenv
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Real strfry configuration
+strfry.conf
