@@ -40,7 +40,7 @@ async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
     yield
 
 
-app = FastAPI(title="FLARE Trust Registry", lifespan=lifespan)
+app = FastAPI(title="NostrGuard Trust Registry", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

@@ -35,5 +35,5 @@ for line in sys.stdin:
     print(json.dumps({
         "id": event["id"],
         "action": "accept" if allowed else "reject",
-        "msg": "" if allowed else "not a registered FLARE volunteer",
+        "msg": "" if allowed else "not a registered NostrGuard volunteer",
     }), flush=True)

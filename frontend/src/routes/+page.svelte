@@ -132,7 +132,7 @@
 	<!-- Navbar -->
 	<div class="navbar bg-base-100 shadow-sm px-4">
 		<div class="flex-1 gap-3 flex items-center">
-			<span class="text-xl font-bold tracking-tight">FLARE</span>
+			<span class="text-xl font-bold tracking-tight">NostrGuard</span>
 			{#if pubkey}
 				<div class="flex items-center gap-2">
 					<div class="badge badge-neutral font-mono text-xs" title={pubkey}>{shortKey(pubkey)}</div>
@@ -196,7 +196,7 @@
 			<div class="hero min-h-[60vh]">
 				<div class="hero-content w-full max-w-md flex-col">
 					<div class="text-center">
-						<h1 class="text-4xl font-bold mb-2">FLARE Volunteers</h1>
+						<h1 class="text-4xl font-bold mb-2">NostrGuard Volunteers</h1>
 						<p class="text-base-content/60 mb-8">
 							Sign in with your Nostr identity to manage your volunteer account.
 						</p>

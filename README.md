@@ -14,8 +14,7 @@ The write policy plugin (`scripts/relay_policy.py`) runs as a long-lived subproc
 
 ---
 
-## Backend (trust registry)
-Do note, that the backend is purely for our relay (relay.informatyczny.org). You can re-use our mechanism if you choose to do so, however if you're only interested in the extension, this section is not important.
+## Backend
 
 ```bash
 cd backend
@@ -42,17 +41,21 @@ And change the configuration as needed.
 
 ---
 
-## Development checks
+### Development checks
 
 ```bash
-# Backend
 cd backend
 uv run ruff check --fix
 uv run ty check
-
-# Extension
-cd extension
-npx tsc --noEmit
-npm run build
 ```
 Please run the respective one before submitting a pull request.
+
+## Frontend
+
+```bash
+cd frontend
+npm install # installing dependencies
+
+npm run dev # to run a locally
+npm run build # or to build static files
+```
