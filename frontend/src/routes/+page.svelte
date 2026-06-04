@@ -42,19 +42,19 @@
 	async function checkStatus(pk: string) {
 		checking = true;
 		statusError = null;
-		console.log("checking status...")
+		isVolunteer = false;
+		isAdmin = false;
+		displayName = null;
 		try {
 			const status = await fetchVolunteerStatus(pk);
 			isVolunteer = status.is_volunteer;
 			isAdmin = status.is_admin;
 			displayName = status.display_name;
 			activeTab = 'dashboard';
-			console.log("checked status and it's" + isAdmin)
 		} catch {
 			statusError = 'Could not reach server. Please try again.';
 			auth = null;
 			pubkey = null;
-			console.log("error while checking status!")
 		} finally {
 			checking = false;
 		}
@@ -110,6 +110,17 @@
 	// Called after successful registration so we refresh status
 	async function onRegistered() {
 		if (pubkey) await checkStatus(pubkey);
+	}
+
+	// Called by VolunteerDashboard once the profile loads — if the extension
+	// switched accounts between connectExtension() and the first authenticated
+	// request, the profile pubkey won't match the one we checked status for,
+	// so we re-check against the actual authenticated pubkey.
+	async function onDashboardProfileLoad(profilePubkey: string) {
+		if (pubkey !== profilePubkey) {
+			pubkey = profilePubkey;
+			await checkStatus(profilePubkey);
+		}
 	}
 
 	function shortKey(hex: string): string {
@@ -275,7 +286,7 @@
 
 		<!-- Volunteer dashboard -->
 		{:else if activeTab === 'dashboard'}
-			<VolunteerDashboard auth={auth!} {onAuthError} />
+			<VolunteerDashboard auth={auth!} {onAuthError} onProfileLoad={onDashboardProfileLoad} />
 
 		<!-- Admin tab -->
 		{:else if activeTab === 'admin' && isAdmin}

@@ -13,10 +13,12 @@
 
 	let {
 		auth,
-		onAuthError
+		onAuthError,
+		onProfileLoad
 	}: {
 		auth: AuthState;
 		onAuthError: () => void;
+		onProfileLoad?: (pubkey: string) => void;
 	} = $props();
 
 	let profile = $state<MyProfile | null>(null);
@@ -41,8 +43,8 @@
 		loading = true;
 		error = null;
 		try {
-			profile = await fetchMyProfile(auth);
-			invitees = await fetchMyInvitees(auth);
+			[profile, invitees] = await Promise.all([fetchMyProfile(auth), fetchMyInvitees(auth)]);
+			onProfileLoad?.(profile.pubkey);
 		} catch (e) {
 			if (e instanceof AuthError) onAuthError();
 			else error = e instanceof Error ? e.message : 'Failed to load';
