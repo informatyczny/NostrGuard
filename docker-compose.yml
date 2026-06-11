@@ -1,14 +1,13 @@
 services:
   relay:
-    image: hoytech/strfry:latest
+    build:
+      context: .
+      dockerfile: relay.Dockerfile
     volumes:
       - ./strfry.conf:/etc/strfry.conf:ro
       - ./scripts/relay_policy.py:/app/scripts/relay_policy.py:ro
       - relay-data:/app/strfry-db
-    entrypoint:
-      - sh
-      - -c
-      - chmod +x /app/scripts/relay_policy.py && exec strfry --config=/etc/strfry.conf relay
+    command: ["--config=/etc/strfry.conf", "relay"]
     # Not exposed to host — nginx proxies WebSocket connections internally
 
   backend:
@@ -19,7 +18,10 @@ services:
     # Not exposed to host — nginx proxies /api/* internally
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        PUBLIC_API_BASE: ""
     ports:
       - "80:80"
     depends_on:

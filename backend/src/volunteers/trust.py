@@ -340,7 +340,6 @@ if __name__ == "__main__":
                         registered_at=datetime.now(UTC).isoformat(),
                     )
                 )
-                session.flush()
                 print(f"Added volunteer record for admin: {pubkey}")
 
             existing_admin = (
@@ -352,7 +351,8 @@ if __name__ == "__main__":
                 session.add(
                     Admin(pubkey=pubkey, added_at=datetime.now(UTC).isoformat())
                 )
-                session.commit()
                 print(f"Seeded admin: {pubkey}")
+
+            session.commit()
     else:
         parser.print_help()

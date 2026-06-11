@@ -46,7 +46,7 @@ async function authedFetch(
 	method = 'GET',
 	body?: unknown
 ): Promise<Response> {
-	const url = `${PUBLIC_API_BASE}${path}`;
+	const url = (PUBLIC_API_BASE || window.location.origin) + path;
 	const authHeader = await buildHeader(url, method, auth);
 	const res = await fetch(url, {
 		method,
